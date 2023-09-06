@@ -20,9 +20,10 @@ export function activate(context: vscode.ExtensionContext) {
 		currentPanel = vscode.window.createWebviewPanel(
 		  'vscodeTest',
 		  'Fhirpath demo',
-		  vscode.ViewColumn.One,
+		   vscode.ViewColumn.Active,
 		  {
-			enableScripts: true
+			enableScripts: true,
+			retainContextWhenHidden: true
 		  }
 		);    
 		currentPanel.webview.onDidReceiveMessage(
@@ -38,10 +39,11 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 		FhirpathDemo.getJson(currentPanel,'patient');
 		FhirpathDemo.setHtmlContent(currentPanel.webview, context, getNonce());
+		FhirpathDemo.getFunctionFhirpath(currentPanel);
 
 		currentPanel.onDidDispose(() => {
 			currentPanel = undefined;
-		  });
+		});
 		
 	}));
 
@@ -64,6 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.window.createTreeView('fhirpath', {treeDataProvider})
 	);
 
+	//Registramos el commando que carga la extensión
 	context.subscriptions.push(vscode.commands.registerCommand('fhirpathDemo.getResource',(args)=>{
 		if(currentPanel && currentPanel?.visible)  {
 			const resource:string = args.label;

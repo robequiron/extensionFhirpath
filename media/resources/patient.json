@@ -1,6 +1,9 @@
 {
     "resourceType": "Patient",
     "id": "example",
+    "numbers": [
+      1,3,5,10
+    ],
     "address": [
       {
         "use": "home",

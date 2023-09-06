@@ -1,36 +1,88 @@
 .inputFhirpath {
-    border: 1px solid var(--vscode-input-border,transparent);
-    border-radius: 2px;
+    border: 0.063em solid var(--vscode-input-border,transparent);
+    border-radius: 0.125em;
     color: var(--vscode-input-foreground);
     background-color: var(--vscode-input-background);
-    padding: 2px;
+    padding: 0.125em;
     user-select: all;
-    line-height: 24px;
+    line-height: 1.5em;
     width: 100%;
+    font-size: large;
 }
 
 .container {
-    padding: 10px;
+    padding: 0.625em;
 }
 
 .container-res {
     display: flex;
-    gap: 10px 20px;
+    gap: 0.625em 1.25em;
 }
 
-.container-res-resource {
+.container-res-resource,
+.container-categories {
     flex: 0 1 60%; /* flex-grow: 0, flex-shrink: 1, flex-basis: 75% */
     max-width: 75%;
     min-height: 560px;
     resize: none;
 }
-.container-res-response {
+.container-res-response,
+.container-function
+{
     border: 1px solid var(--vscode-input-background);
     flex: 0 1 40%;
     max-width: 40%;
     max-height: 560px;
     overflow: auto;
 }
-.container-res-response > pre {
+.container-res-response > pre,
+.container-info-funcFHIR {
     padding: 0 1em 0 1em
 }
+.label {
+    display: inline;
+    padding: 0.125em 0.313em;
+    margin-right: 0.313em;
+    margin-bottom: 0.313em;
+    border-radius: 0.5em;
+    font-family: var(--vscode-font-family);
+    font-size: 1em;
+    text-transform: lowercase;
+    color: var(--vscode-button-foreground);
+    background-color: var(--vscode-button-background);
+    cursor: pointer;
+}
+
+.container-functions {
+    display: flex;
+    flex-wrap:wrap;
+    margin-top: 0.313em;
+    flex-direction: row;
+}
+
+.container-info-funcFHIR-example {
+    overflow-x: auto;
+    margin-top: 0.625em;
+    border: 0.063em solid var(--vscode-button-secondaryBackground);
+    border-radius: 0.313em;
+    padding: 0.313em;
+}
+.container-info-funcFHIR-example > span {
+    display: block;
+    margin-top: 0.313em;
+}
+.container-info-funcFHIR-example > code, 
+.code-function {
+    color: forestgreen;
+    display: block;
+}
+
+code-function {
+    color: forestgreen;
+}
+
+.container-info-funcFHIR-example > code > code-comment {
+    color:gray;
+}
+
+ 

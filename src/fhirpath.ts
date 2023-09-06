@@ -2,11 +2,12 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fhirpath from 'fhirpath';
-
+import { FunctionFhirpath } from './models/functionFhirpath.model';
+import { from, groupBy, mergeMap, toArray } from 'rxjs'
 export class FhirpathDemo {
 
     /**
-     * HTML
+     * HTML del FHIRPATH demo
      * @param webview 
      * @param extensionContext 
      * @param nonce 
@@ -25,9 +26,20 @@ export class FhirpathDemo {
         <div class="container">
 	  	    <input type="text" id="evaluate" class="inputFhirpath">
 	    </div>
+        
         <div class="container container-res">
             <textarea id="resource" rows="10" cols="50" class="container-res-resource inputFhirpath">Write something here</textarea>
             <div id="response" class="container-res-response"><pre>Codigo</pre></div>
+        </div>
+        <div class="container container-res">
+            <div class="container-categories" id="categories">
+            <div class="container-functions">
+                <div id="labelFunction"></div>
+            </div>
+            </div>
+            <div class="container-function" id="infoFunction">
+                Información detallada de la función
+            </div>  
         </div>
         <div>
         </div>
@@ -51,7 +63,7 @@ export class FhirpathDemo {
     }
 
     /**
-     * Leemos el fichero JSON con el recurso
+     * Leemos el fichero JSON con el recurso por defecto (Patient)
      * @param currentPanel 
      * @param resource 
      */
@@ -59,10 +71,29 @@ export class FhirpathDemo {
         try {
             const jsonFilePath = path.join(__dirname, '..', 'media', 'resources', resource + '.json');
             const jsonData = fs.readFileSync(jsonFilePath, 'utf-8');
-            currentPanel.webview.postMessage({ command: 'resource', resource: JSON.parse(jsonData), evaluate:"Patient.name.where(use='usual').given.first()"});
+            currentPanel.webview.postMessage({ command: 'resource', resource: JSON.parse(jsonData), evaluate:""});
         } catch (error) {
             vscode.window.showErrorMessage("Existe un error al abrir el fichero JSON con el recurso");
         }	
+    }
+
+    /**
+     * Obtenemos el listado de la funciones disponibles para fhirpath
+     * @param currentPanel 
+     */
+    public static getFunctionFhirpath(currentPanel:vscode.WebviewPanel) {
+        try {
+          const jsonFilePath = path.join(__dirname, '..', 'media',  'functionFhirpath.json');
+          const jsonData = fs.readFileSync(jsonFilePath, 'utf-8'); 
+          const functionFhirpath:FunctionFhirpath[]= [];
+          from(JSON.parse(jsonData)).pipe(
+            groupBy<any,any>(data=>data.category),
+            mergeMap<any,FunctionFhirpath[]>(group => group.pipe(toArray()))
+          ).subscribe((data)=>{functionFhirpath.push(data)})
+          currentPanel.webview.postMessage({ command: 'functionFhirpath', data:functionFhirpath});
+        } catch (error) {
+            vscode.window.showErrorMessage("Existe un error al abrir el fichero JSON con la funciones de fhirpath");
+        }
     }
 
     /**
@@ -77,7 +108,7 @@ export class FhirpathDemo {
                 currentPanel.webview.postMessage({command:'evaluate', evaluate:fhirpath.evaluate(JSON.parse(resource), evaluate)});
             }
         } catch (error) {
-            vscode.window.showErrorMessage("Existe un error al evaluar la expresión");
+            //vscode.window.showErrorMessage("Existe un error al evaluar la expresión");
         }
     }
 

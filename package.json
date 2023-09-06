@@ -53,7 +53,6 @@
               "lineNumber": "$0"
             }
           ]
-        
         }
       ]
     },
@@ -65,13 +64,9 @@
     ],
     "commands": [
       {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "fhirpathDemo.start",
         "title": "Iniciar fhirpath demo",
-        "category": "Cat Coding"
+        "category": "Fhirpath"
       },
       {
         "command": "fhirpathDemo.getResource",
@@ -116,6 +111,7 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
-    "fhirpath": "^3.6.0"
+    "fhirpath": "^3.6.0",
+    "rxjs": "^7.8.1"
   }
 }
