@@ -2,7 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { FhirpathDemo,TreeResourceJson } from './fhirpath';
-
+import { Decorator } from './decorator';
+const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
+const configDecorator = vscode.workspace.getConfiguration('decorator');
 
 
 // This method is called when your extension is activated
@@ -11,8 +13,17 @@ export function activate(context: vscode.ExtensionContext) {
 	// Panel vista
 	let currentPanel: vscode.WebviewPanel | undefined = undefined;
 
+
+	vscode.window.onDidChangeActiveTextEditor(editor => {
+		
+		if (editor && configDecorator.get('show')) {
+			Decorator.initDecorator(editor, configDecorator.get('textEditor') || [])
+		}
+
+	})
+
 	//Mostramos el webview del fhirpath demo
-	context.subscriptions.push(vscode.commands.registerCommand('fhirpathDemo.start', () => {
+	context.subscriptions.push(vscode.commands.registerCommand('fhirpathDemo.start', () => {	
 		if (currentPanel){
 			return;
 		}
@@ -39,7 +50,9 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 		FhirpathDemo.getJson(currentPanel,'patient');
 		FhirpathDemo.setHtmlContent(currentPanel.webview, context, getNonce());
-		FhirpathDemo.getFunctionFhirpath(currentPanel);
+		if (configFhirpathDemo.get('infofunc')) {
+			FhirpathDemo.getFunctionFhirpath(currentPanel);
+		}
 
 		currentPanel.onDidDispose(() => {
 			currentPanel = undefined;

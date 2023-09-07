@@ -15,6 +15,37 @@
     "./media/javascript.js"
   ],
   "contributes": {
+    "configuration": {
+      "title": "Configuración Extensión ROBEQUIRON",
+      "properties": {
+        "fhirpathDemo.infofunc": {
+          "type":"boolean",
+          "default": false,
+          "description": "Habilitar mostrar información y ayuda de las funciones FHIRPATH"
+        },
+        "decorator.show": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mostrar decoración de palabras claves en el editor"
+        },
+        "decorator.textEditor": {
+          "type": "array",
+          "default": [
+            {
+              "text" : "idWidget",
+              "languageId": "json",
+              "hoverMessage":"Mensaje hover",
+              "style" : {
+                "borderWidth": "1px",
+                "borderStyle": "solid",
+                "borderColor": "blue"
+              }
+            }
+          ],
+          "description": "Textos a decorar en el editor"
+        }
+      }
+    },
     "viewsContainers": {
       "activitybar": [
         {

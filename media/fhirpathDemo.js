@@ -33,7 +33,9 @@ window.addEventListener('message', event=>{
       case 'evaluate':
         response.innerHTML = '<pre>' + JSON.stringify(message.evaluate, undefined, 4) + '</pre>';
         break;
-      case 'functionFhirpath':
+      case 'functionFhirpath': 
+        const infoFunction = document.getElementById('infoFunction');
+        infoFunction.setAttribute("class", 'container-function')
         setContainerFunctions(message.data)
         break;
     }

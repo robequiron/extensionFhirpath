@@ -37,9 +37,7 @@ export class FhirpathDemo {
                 <div id="labelFunction"></div>
             </div>
             </div>
-            <div class="container-function" id="infoFunction">
-                Información detallada de la función
-            </div>  
+            <div class="" id="infoFunction"></div>  
         </div>
         <div>
         </div>
