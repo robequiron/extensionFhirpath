@@ -16,33 +16,12 @@
   ],
   "contributes": {
     "configuration": {
-      "title": "Configuración Extensión ROBEQUIRON",
+      "title": "Config FHIRPATH",
       "properties": {
         "fhirpathDemo.infofunc": {
           "type":"boolean",
           "default": false,
           "description": "Habilitar mostrar información y ayuda de las funciones FHIRPATH"
-        },
-        "decorator.show": {
-          "type": "boolean",
-          "default": true,
-          "description": "Mostrar decoración de palabras claves en el editor"
-        },
-        "decorator.textEditor": {
-          "type": "array",
-          "default": [
-            {
-              "text" : "idWidget",
-              "languageId": "json",
-              "hoverMessage":"Mensaje hover",
-              "style" : {
-                "borderWidth": "1px",
-                "borderStyle": "solid",
-                "borderColor": "blue"
-              }
-            }
-          ],
-          "description": "Textos a decorar en el editor"
         }
       }
     },
@@ -50,7 +29,7 @@
       "activitybar": [
         {
           "id": "package-explorer",
-          "title": "Este es mi Activity",
+          "title": "Fhirpath Demo",
           "icon": "media/dep.svg"
         }
       ]
@@ -58,12 +37,8 @@
     "views": {
       "package-explorer": [
         {
-          "id": "dependencias",
-          "name": "Dependencias"
-        },
-        {
           "id": "fhirpath",
-          "name": "Recursos fhirpath"
+          "name": "Resources"
         }
       ]
     },
@@ -106,11 +81,24 @@
           "light": "media/icons/fhirpath.svg",
           "dark": "media/icons/fhirpath-dark.svg"
         }
+      }
+    ],
+    "languages": [
+      {
+        "id": "es",
+        "files": [
+          {
+            "path": "./i18n/es.json"
+          }
+        ]
       },
       {
-        "command": "catCoding.doRefactor",
-        "title": "Do some refactoring",
-        "category": "Cat Coding"
+        "id": "en",
+        "files": [
+          {
+            "path": "./i18n/en.json"
+          }
+        ]
       }
     ]
   },

@@ -135,12 +135,13 @@ export class TreeItem {
 
 export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
     
-	private datas:TreeItem[]= [];
+	private itemResource:TreeItem[]= [];
+    
 
 	jsonFilePath = path.join(__dirname, '..', 'media','resources');
-    files = fs.readdirSync(this.jsonFilePath).map((data)=>{
-		const item = data.charAt(0).toUpperCase() + data.slice(1,-5);
-		this.datas.push(new TreeItem(item));
+    files = fs.readdirSync(this.jsonFilePath).map((nameJSON)=>{
+		const item = nameJSON.charAt(0).toUpperCase() + nameJSON.slice(1,-5);
+		this.itemResource.push(new TreeItem(item));
 	});
 
 	getTreeItem(element: TreeItem): vscode.TreeItem {
@@ -148,6 +149,6 @@ export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
     }
 
     getChildren(element?: TreeItem): Thenable<TreeItem[]> {
-        return Promise.resolve(element ? element.children : this.datas);
+        return Promise.resolve(element ? element.children : this.itemResource);
     }
 }

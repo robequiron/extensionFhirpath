@@ -2,35 +2,26 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { FhirpathDemo,TreeResourceJson } from './fhirpath';
-import { Decorator } from './decorator';
+import { fromEvent } from 'rxjs';
+import { COMMAND, CONSTANT } from './models/constant';
 const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
-const configDecorator = vscode.workspace.getConfiguration('decorator');
-
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	// Panel vista
 	let currentPanel: vscode.WebviewPanel | undefined = undefined;
-
-
-	vscode.window.onDidChangeActiveTextEditor(editor => {
-		
-		if (editor && configDecorator.get('show')) {
-			Decorator.initDecorator(editor, configDecorator.get('textEditor') || [])
-		}
-
-	})
+	
 
 	//Mostramos el webview del fhirpath demo
-	context.subscriptions.push(vscode.commands.registerCommand('fhirpathDemo.start', () => {	
+	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.START, () => {	
 		if (currentPanel){
 			return;
 		}
 		
 		currentPanel = vscode.window.createWebviewPanel(
 		  'vscodeTest',
-		  'Fhirpath demo',
+		  'Fhirpath Studio',
 		   vscode.ViewColumn.Active,
 		  {
 			enableScripts: true,
@@ -60,39 +51,22 @@ export function activate(context: vscode.ExtensionContext) {
 		
 	}));
 
-
-	  // Our new command
-	context.subscriptions.push(vscode.commands.registerCommand('catCoding.doRefactor', () => {
-		if (!currentPanel) {
-			return;
-		}
-		console.log("Iniciamos desde extensiónn a la web");
-		// Send a message to our webview.
-		// You can send any JSON serializable data.
-		currentPanel.webview.postMessage({ command: 'refactor' });
-	})
-	);
-
+	//Creamos el listado de recursos de Fhirpath
 	const treeDataProvider = new TreeResourceJson();
 
-    // Crea y muestra el TreeView del Fhirpath
+    //Crea y muestra el TreeView del Fhirpath
     context.subscriptions.push(vscode.window.createTreeView('fhirpath', {treeDataProvider})
 	);
 
 	//Registramos el commando que carga la extensión
-	context.subscriptions.push(vscode.commands.registerCommand('fhirpathDemo.getResource',(args)=>{
+	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.GET_RESOURCE,(args)=>{
 		if(currentPanel && currentPanel?.visible)  {
 			const resource:string = args.label;
 			FhirpathDemo.getJson(currentPanel,resource.toLowerCase());				
 		}
 	}));
-
-	
-
-
-	
+		
 }
-
 
 function getNonce() {
 	let text = '';
@@ -103,7 +77,5 @@ function getNonce() {
 	return text;
 }
   
-  
-
 // This method is called when your extension is deactivated
 export function deactivate() {}
