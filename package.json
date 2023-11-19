@@ -1,8 +1,9 @@
 {
   "name": "extension",
   "displayName": "extension",
-  "description": "",
-  "version": "0.0.1",
+  "description": "FhirpathUtil is an open source extension for Visual that implements functions specific to FHIR resource evaluation.",
+  "publisher": "FhirpathUtil",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.81.0"
   },
