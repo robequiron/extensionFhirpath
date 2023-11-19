@@ -4,5 +4,5 @@ export enum CONSTANT {
 
 export enum COMMAND {
     START = 'fhirpathDemo.start',
-    GET_RESOURCE = 'getResource'
+    GET_RESOURCE = 'fhirpathDemo.getResource'
 }

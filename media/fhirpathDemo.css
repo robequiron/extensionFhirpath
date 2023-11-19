@@ -34,6 +34,7 @@
     max-width: 40%;
     max-height: 560px;
     overflow: auto;
+    font-size:medium
 }
 .container-res-response > pre,
 .container-info-funcFHIR {

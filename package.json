@@ -30,7 +30,7 @@
         {
           "id": "package-explorer",
           "title": "Fhirpath Demo",
-          "icon": "media/dep.svg"
+          "icon": "media/fhirutil.svg"
         }
       ]
     },
