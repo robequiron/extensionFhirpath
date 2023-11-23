@@ -6,7 +6,8 @@ FHIR® is the registered trademark of HL7 and is used with the permission of HL7
 
 ## Features
 
- ![Fhirpathexample](/images/fhirpathexample.gif)
+ ![Fhirpathexample](fhirpathexample.gif)
+ ![Fhirpathexample](https://github.com/robequiron/extensionFhirpath/fhirpathexample.gif)
 
 
 ## For more information
