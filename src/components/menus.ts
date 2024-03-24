@@ -28,7 +28,7 @@ export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
 
     constructor() {}
     
-    jsonFilePath = path.join(__dirname, '../..', 'media','resources');
+    jsonFilePath = path.join(__dirname, '..',  'media','resources');
     files = fs.readdirSync(this.jsonFilePath).map((nameJSON,i)=>{
 		const item = nameJSON.charAt(0).toUpperCase() + nameJSON.slice(1,-5);
         const command = this.getCommand(i,item);
@@ -78,7 +78,7 @@ export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
      */
     private getDataJson() {
         try {
-            const jsonFilePath = path.join(__dirname, '../..', 'media',  'functionFhirpath.json');
+            const jsonFilePath = path.join(__dirname, '..', 'media',  'functionFhirpath.json');
             const jsonData = fs.readFileSync(jsonFilePath, 'utf-8'); 
             this.jsonData = JSON.parse(jsonData);
         } catch (error) {
