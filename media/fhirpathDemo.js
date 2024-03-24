@@ -33,10 +33,8 @@ window.addEventListener('message', event=>{
       case 'evaluate':
         response.innerHTML = '<pre>' + JSON.stringify(message.evaluate, undefined, 4) + '</pre>';
         break;
-      case 'functionFhirpath': 
-        const infoFunction = document.getElementById('infoFunction');
-        infoFunction.setAttribute("class", 'container-function')
-        setContainerFunctions(message.data)
+      case 'showFunctionInfo': 
+        setInfoFunctions(message.data)
         break;
     }
 });
@@ -47,9 +45,7 @@ window.addEventListener('message', event=>{
  */
 function setInfoFunctions(data){
   const infoFunction = document.getElementById('infoFunction');
-  
   if (data) {
-    data = JSON.parse(data);
     let html = '<div class="container-info-funcFHIR">';
     html+= '<div class="container-info-funcFHIR-title"><h2>'+ data.name +'</h2></div>'
     html+= '<div class="container-info-funcFHIR-signature"><h3>'+ data.signature+'</h3></div>'; 

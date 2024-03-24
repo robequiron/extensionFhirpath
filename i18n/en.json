@@ -1,0 +1,15 @@
+{
+    "label.resource": "Resources to show",
+    "label.open": "Open",
+    "error.function.fhirpath": "Error in Fhirpath functions",
+    "error.function.info.fhirpath": "Error getting function information",
+    "error.show.resource.fhirpath": "Error displaying fhirpath resources",
+    "existence": "Existence",
+    "filtering": "Filtered out",
+    "aggregate": "Aggregation",
+    "misc": "Confitional",
+    "strings": "Text",
+    "match": "Mathematical functions",
+    "datetime": "Date and Time",
+    "noInfo": "No information"
+  }

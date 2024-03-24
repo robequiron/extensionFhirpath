@@ -1,9 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { FhirpathDemo,TreeResourceJson } from './fhirpath';
+import { FhirpathDemo} from './fhirpath';
+import {TreeFunctionJson,TreeResourceJson} from './components/menus';
 import { fromEvent } from 'rxjs';
 import { COMMAND, CONSTANT } from './models/constant';
+import { Translate } from './class/translate.class';
 const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
 
 // This method is called when your extension is activated
@@ -11,7 +13,8 @@ const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
 export function activate(context: vscode.ExtensionContext) {
 	// Panel vista
 	let currentPanel: vscode.WebviewPanel | undefined = undefined;
-	
+
+	Translate.init();
 
 	//Mostramos el webview del fhirpath demo
 	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.START, () => {	
@@ -42,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
 		FhirpathDemo.getJson(currentPanel,'patient');
 		FhirpathDemo.setHtmlContent(currentPanel.webview, context, getNonce());
 		if (configFhirpathDemo.get('infofunc')) {
-			FhirpathDemo.getFunctionFhirpath(currentPanel);
+			
 		}
 
 		currentPanel.onDidDispose(() => {
@@ -55,16 +58,40 @@ export function activate(context: vscode.ExtensionContext) {
 	const treeDataProvider = new TreeResourceJson();
 
     //Crea y muestra el TreeView del Fhirpath
-    context.subscriptions.push(vscode.window.createTreeView('fhirpath', {treeDataProvider})
-	);
+    context.subscriptions.push(vscode.window.createTreeView('fhirpath', {treeDataProvider}));
 
-	//Registramos el commando que carga la extensión
+	//Creamos el listado de funciones de Fhirpath
+	const treeDataFunction = new TreeFunctionJson();
+
+	//Crea y muestra el TreeView del Fhirpath
+    context.subscriptions.push(vscode.window.createTreeView('function', {treeDataProvider: treeDataFunction}));
+
+	//Registramos el commando que carga la extensión y muestra el pestaña de fhirtpath demo
 	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.GET_RESOURCE,(args)=>{
-		if(currentPanel && currentPanel?.visible)  {
-			const resource:string = args.label;
-			FhirpathDemo.getJson(currentPanel,resource.toLowerCase());				
+		try {
+			vscode.commands.executeCommand(COMMAND.START)
+			if(currentPanel && currentPanel?.visible)  {
+				const resource:string = args.label;
+				FhirpathDemo.getJson(currentPanel,resource.toLowerCase());				
+			}	
+		} catch (error) {
+			vscode.window.showErrorMessage(Translate.getTranslate("error.show.resource.fhirpath"))
 		}
+		 
 	}));
+
+	//Registramos el commando que carga la información de la función fhirpath desde el menu de recursos
+	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.INFO_FUNCTION, (args)=>{
+		try {
+			vscode.commands.executeCommand(COMMAND.START)
+			if(currentPanel && currentPanel?.visible) {
+				FhirpathDemo.showFunctionFhirpath(currentPanel, args.data);
+			} 	
+		} catch (error) {
+			vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"));
+		}
+	}))
+
 		
 }
 

@@ -2,8 +2,10 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as fhirpath from 'fhirpath';
-import { FunctionFhirpath } from './models/functionFhirpath.model';
-import { from, groupBy, mergeMap, toArray } from 'rxjs'
+
+const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
+
+
 export class FhirpathDemo {
 
     /**
@@ -20,6 +22,7 @@ export class FhirpathDemo {
           <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src cspSource; script-src 'nonce-nonce';">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <link href="vscodeTest.css" rel="stylesheet">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
         <body>
           
@@ -31,8 +34,7 @@ export class FhirpathDemo {
             <textarea id="resource" rows="10" cols="50" class="container-res-resource inputFhirpath">Write something here</textarea>
             <div id="response" class="container-res-response"><pre>Codigo</pre></div>
         </div>
-        <div class="container container-res">
-            <div class="container-categories" id="categories">
+        <div class="container">
             <div class="container-functions">
                 <div id="labelFunction"></div>
             </div>
@@ -75,23 +77,9 @@ export class FhirpathDemo {
         }	
     }
 
-    /**
-     * Obtenemos el listado de la funciones disponibles para fhirpath
-     * @param currentPanel 
-     */
-    public static getFunctionFhirpath(currentPanel:vscode.WebviewPanel) {
-        try {
-          const jsonFilePath = path.join(__dirname, '..', 'media',  'functionFhirpath.json');
-          const jsonData = fs.readFileSync(jsonFilePath, 'utf-8'); 
-          const functionFhirpath:FunctionFhirpath[]= [];
-          from(JSON.parse(jsonData)).pipe(
-            groupBy<any,any>(data=>data.category),
-            mergeMap<any,FunctionFhirpath[]>(group => group.pipe(toArray()))
-          ).subscribe((data)=>{functionFhirpath.push(data)})
-          currentPanel.webview.postMessage({ command: 'functionFhirpath', data:functionFhirpath});
-        } catch (error) {
-            vscode.window.showErrorMessage("Existe un error al abrir el fichero JSON con la funciones de fhirpath");
-        }
+    public static showFunctionFhirpath(currentPanel:vscode.WebviewPanel, functionFhirpath:any) {
+        if (!functionFhirpath) return;
+        currentPanel.webview.postMessage({ command: 'showFunctionInfo', data:functionFhirpath});
     }
 
     /**
@@ -124,31 +112,5 @@ export class FhirpathDemo {
             return [];
         }
     }
-    
 
-
-}
-
-export class TreeItem {
-    constructor(public readonly label: string, public readonly children: TreeItem[] = []) {}
-}
-
-export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
-    
-	private itemResource:TreeItem[]= [];
-    
-
-	jsonFilePath = path.join(__dirname, '..', 'media','resources');
-    files = fs.readdirSync(this.jsonFilePath).map((nameJSON)=>{
-		const item = nameJSON.charAt(0).toUpperCase() + nameJSON.slice(1,-5);
-		this.itemResource.push(new TreeItem(item));
-	});
-
-	getTreeItem(element: TreeItem): vscode.TreeItem {
-        return element;
-    }
-
-    getChildren(element?: TreeItem): Thenable<TreeItem[]> {
-        return Promise.resolve(element ? element.children : this.itemResource);
-    }
 }

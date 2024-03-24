@@ -1,8 +1,9 @@
 [
   { 
-    "name":"Empty",
+    "name":"empty",
     "signature":" empty() : Boolean",       
-      "isVisible": true,
+    "isVisible": true,
+    "tooltip": "Información tootltip",
     "category": "existence",
     "example": [
         "<span>Devuelve <code>false</code> el recurso conditión tiene valores</span><code>Condition.empty()</code>",
@@ -12,6 +13,7 @@
   },
   { "name":"not",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "not() : Boolean",
     "example": [
@@ -22,6 +24,7 @@
   },
   { "name":"exists",
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "exists([criteria : expression]) : Boolean",
     "example": [
@@ -34,6 +37,7 @@
   },
   { "name":"all",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "all(criteria : expression) : Boolean",
     "example":["<span>Devuelve <code>true</code> si todos los general Practitioner elementos son de tipo Practitioner.</span><code>generalPractitioner.all($this is Practitioner)</code>"],
@@ -41,6 +45,7 @@
   },
   { "name":"allTrue",     
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "allTrue() : Boolean",
     "example": ["<span>Devuelve <code>true</code> si todos los componentes de la Observación tienen un valor superior a 90 mm[Hg]:</span><code>Observation.select(component.value > 90 \"mm[Hg]\").allTrue()</code>"],
@@ -48,6 +53,7 @@
   },
   { "name":"anyTrue",     
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "anyTrue() : Boolean",
     "example": ["<span>El siguiente ejemplo devuelve <code>true</code> si alguno de los componentes de la Observación tiene un valor mayor a 90 mm[Hg]:</span><code>Observation.select(component.value > 90 \"mm[Hg]\").anyTrue()</code>"],
@@ -55,6 +61,7 @@
   },
   { "name":"allFalse",    
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature":"allFalse() : Boolean",
     "example":["<span>Devuelve <code>true</code> si ninguno de los componentes de la Observación tiene un valor mayor a 90 mm[Hg]</span><code>Observation.select(component.value > 90 \"mm[Hg]\").allFalse()</code>"],
@@ -63,6 +70,7 @@
   },
   { "name":"anyFalse",    
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "anyFalse(): Boolean",
     "example":["<span>Devuelve <code>true</code> si alguno de los componentes de la Observación tiene un valor que no es mayor a 90 mm[Hg]</span><code>Observation.select(component.value > 90 \"mm[Hg]\").anyFalse()</code>"],
@@ -70,6 +78,7 @@
   },
   { "name":"subsetOf",    
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "subsetOf(other : collection) : Boolean",
     "example": ["<span>El siguiente ejemplo devuelve verdadero si las etiquetas definidas en cualquier recurso contenido son un subconjunto de las etiquetas definidas en el recurso MedicationRequest</span><code>MedicationRequest.contained.meta.tag.subsetOf(MedicationRequest.meta.tag)</code>"],
@@ -77,6 +86,7 @@
   },
   { "name":"supersetOf",  
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "supersetOf(other : collection) : Boolean",
     "example":["<span>El siguiente ejemplo devuelve verdadero si las etiquetas definidas en cualquier recurso contenido son un superconjunto de las etiquetas definidas en el recurso MedicationRequest</span><code>MedicationRequest.contained.meta.tag.supersetOf(MedicationRequest.meta.tag)</code>"],
@@ -84,6 +94,7 @@
   },
   { "name":"isDistinct",  
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "isDistinct() : Boolean",
     "example": ["<span>Esto significa que si la colección de entrada está vacía <code>( { })</code>, el resultado es verdadero.</span><code>X.count() = X.distinct().count()</code>"],
@@ -91,6 +102,7 @@
   },
   { "name":"distinct",
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "distinct() : collection",
     "example": ["<span>Devuelve la lista distinta de etiquetas en el Paciente dado</span><code>Patient.meta.tag.distinct()</code>"],
@@ -99,6 +111,7 @@
   },
   { "name":"count",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "existence",
     "signature": "count() : Integer",
     "info": "<p>Devuelve el recuento entero del número de elementos de la colección de entrada. Devuelve 0 cuando la colección de entrada está vacía.</p>"
@@ -108,6 +121,7 @@
 
   { "name":"where",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "where(criteria : expression) : collection",
     "example": ["<span>El siguiente ejemplo devuelve la lista de telecom elementos que tienen un useelemento con el valor de \"official\"</span><code>Patient.telecom.where(use = \"official\")</code>"],
@@ -115,11 +129,13 @@
   },
   { "name":"extension",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "filtering"
   },
 
   { "name":"select",      
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "select(projection: expression) : collection",
     "example": [
@@ -131,6 +147,7 @@
   },
   { "name":"aggregate",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "aggregate",
     "signature": "aggregate(aggregator : expression [, init : value]) : value",
     "example": [],
@@ -139,12 +156,14 @@
   { "name":"sum",         
     "isVisible": true, 
     "signature": "sum(): Integer", 
+    "tooltip": "Información tootltip",
     "category": "aggregate",
     "example": ["<code>Patient.numbers.sum()</code>"],
     "info": "Obtiene la sumatoria de un conjunto de valores numéricos"
   },
   { "name":"min",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "aggregate",
     "signature": "min(): Integer",
     "example": ["<code>Patient.numbers.min()"],
@@ -152,6 +171,7 @@
   },
   { "name":"max",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "aggregate",
     "signature": "max() : Integer",
     "example": ["<code>Patient.numbers.max()</code>"],
@@ -159,6 +179,7 @@
   },
   { "name":"avg",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "aggregate",
     "signature": "avg(): Integer",
     "example": ["<code>Patient.numbers.avg()</code>"],
@@ -167,6 +188,7 @@
   },
   { "name":"single",      
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "single(): collection",
     "example": ["<span>El siguiente ejemplo devuelve el nombre del paciente, si lo hay. Si no hay nombres, es una colección vacía y si hay varios nombres, se indica un error al entorno de evaluación.</span><code>Patient.name.single()</code>"],
@@ -174,40 +196,48 @@
   },
   { "name":"first",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "first(): collection",
     "info": "<p>Devuelve una colección que contiene sólo el primer elemento de la colección de entrada. Esta función es equivalente a <code-function>item[0]</code-function>, por lo que devolverá una colección vacía si la colección de entrada no tiene elementos.</p>"
   },
   { "name":"last",        
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "last(): collection",
     "info": "<p>Devuelve una colección que contiene sólo el último elemento de la colección de entrada. Devolverá una colección vacía si la colección de entrada no tiene elementos.</p>"
   },
   { "name":"type",        
     "isVisible": false,
+    "tooltip": "Información tootltip",
     "category":"math"
   },
   { "name":"ofType",      
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "filtering"
   },
   { "name":"is",          
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category":"math"
   },
   { "name":"as",          
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category":"math"
   },
   { "name":"tail",        
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "tail(): collection",
     "info": "<p>Devuelve una colección que contiene todos los elementos excepto el primero de la colección de entrada. Devolverá una colección vacía si la colección de entrada no tiene elementos o solo tiene uno.</p>"
   },
   { "name":"take",        
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature" : "take(num: Integer) : collection",
     "example": [
@@ -218,24 +248,29 @@
   },
   { "name":"skip",        
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature": "skip(num: Integer) : collection",
     "info":"<p>Devuelve una colección que contiene todos los num elementos excepto el primero de la colección de entrada. Devolverá una colección vacía si no quedan elementos después de que se haya omitido el número de elementos indicado, o si la colección de entrada está vacía. Si num es menor o igual a cero, simplemente se devuelve la colección de entrada.</p>"
   },
   { "name":"combine",     
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category":"combining"
   },
   { "name":"union",       
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category":"combining"  
   },
   { "name":"intersect",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category":"combining"   
   },
   { "name":"iif",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "misc",
     "signature": "iif(criterion: expression, true-result: collection [, otherwise-result: collection]) : collection",
     "example": [
@@ -245,78 +280,97 @@
   },
   { "name":"trace",       
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toInteger",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toDecimal",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toString",    
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toDate",      
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toDateTime",  
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toTime",      
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toBoolean",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"toQuantity",  
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"hasValue",    
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToBoolean",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToInteger",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToDecimal",   
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToString",    
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToDate",      
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToDateTime",  
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToTime",      
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"convertsToQuantity",  
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "misc"
   },
   { "name":"indexOf",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "indexOf(substring : String) : Integer",
     "example":[
@@ -329,6 +383,7 @@
   },
   { "name":"substring",     
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "substring(start : Integer [, length : Integer]) : String",
     "example": [
@@ -341,6 +396,7 @@
   },
   { "name":"startsWith",    
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "startsWith(prefix : String) : Boolean",
     "example": [
@@ -351,6 +407,7 @@
   },
   { "name":"endsWith",      
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "endsWith(suffix : String) : Boolean",
     "example": [
@@ -361,6 +418,7 @@
   },
   { "name":"contains",      
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "contains(substring : String) : Boolean",
     "example": [
@@ -372,18 +430,21 @@
   },
   { "name":"upper",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "upper() : String",
     "info" : "<p>Devuelve la cadena de entrada con todos los caracteres convertidos a mayúsculas.</p><p>Si la colección de entrada está vacía, el resultado está vacío.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
   { "name":"lower",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "lower(): String",
     "info" : "<p>Devuelve la cadena de entrada con todos los caracteres convertidos a minúsculas.</p><p>Si la colección de entrada está vacía, el resultado está vacío.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
   { "name":"replace",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "replace(pattern : String, substitution : String) : String",
     "example": [
@@ -394,30 +455,35 @@
   },
   { "name":"matches",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "matches(regex : String) : Boolean",
     "info": "<p>Devuelve <code>true</code> cuando el valor coincide con la expresión regular dada. Las expresiones regulares deben funcionar de manera consistente, independientemente de cualquier configuración cultural y local específica en el entorno, deben distinguir entre mayúsculas y minúsculas, usar el modo de línea única y permitir caracteres Unicode.</p><p>Si la colección de entrada o regex está vacía, el resultado está vacío <code>( { })</code>.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
   { "name":"replaceMatches",
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature" : "replaceMatches(regex : String, substitution: String) : String",
     "info": "<p>Coincide con la entrada usando la expresión regular en regexy reemplaza cada coincidencia con la substitutioncadena. La sustitución puede hacer referencia a grupos de coincidencias identificados en la expresión regular.</p><p>Si la colección de entrada, regexo substitutionestán vacías, el resultado está vacío <code>( { })</code>.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
   { "name":"length",        
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "length() : Integer",
     "info" : "<p>Devuelve la longitud de la cadena de entrada. Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío.</p>"
   },
   { "name":"toChars",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "toChars() : collection",
     "info" : "<p>Devuelve la lista de caracteres en la cadena de entrada. Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío.</p>"
   },
   { "name":"join",          
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "join([separator: String]) : String",
     "example": [
@@ -427,26 +493,31 @@
   },
   { "name":"split",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": " split(separator: String) : collection",
     "info" : "<p>La función de división divide una cadena de entrada singleton en una lista de cadenas, utilizando el separador dado.</p><p>Si la entrada está vacía, el resultado está vacío.</p><p>Si la cadena de entrada no contiene ninguna apariencia del separador, el resultado es la cadena de entrada.</p>"
   },
   { "name":"trim",          
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "strings",
     "signature": "trim() : String",
     "info" : "<p>La función de recorte recorta los caracteres de espacio en blanco desde el principio y el final de la cadena de entrada, con caracteres de espacio en blanco como se define en la categoría léxica de espacios en blanco .</p><p>Si la entrada está vacía, el resultado está vacío.</p>"
   },
   { "name":"encode",        
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "strings"
   },
   { "name":"decode",        
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "strings"
   },
   { "name":"abs",           
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature": "abs(): Integer | Decimal | Quantity ",
     "example": [
@@ -458,6 +529,7 @@
   },
   { "name":"ceiling",       
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature": "ceiling() : Integer",
     "example": [ 
@@ -469,6 +541,7 @@
   },
   { "name":"exp",           
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature": "exp() : Decimal",
     "example": [
@@ -479,6 +552,7 @@
   },
   { "name":"floor",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature":"floor() : Integer",
     "example": [
@@ -490,6 +564,7 @@
   },
   { "name":"ln", 
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature":"ln(): Decimal",
     "example": [
@@ -500,6 +575,7 @@
   },
   { "name":"log",           
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature":  "log(base: Decimal) : Decimal",
     "example":  [ 
@@ -509,6 +585,7 @@
   },
   { "name":"power",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature" : "power(exponent : Integer | Decimal) : Integer | Decimal",
     "example": [
@@ -520,6 +597,7 @@
   },
   { "name":"round",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature": "round([precision : Integer]) : Decimal",
     "example": [
@@ -530,6 +608,7 @@
   },
   { "name":"sqrt",          
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature":"sqrt() : Decimal",
     "example":[
@@ -541,6 +620,7 @@
   },
   { "name":"truncate",      
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"math",
     "signature": "truncate() : Integer",
     "example": [
@@ -553,24 +633,28 @@
   },
   { "name":"now",           
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"datetime",
     "signature": "now(): DateTime",
     "info":"<p>Devuelve la fecha y hora actuales, incluido el desplazamiento de la zona horaria.</p>"
   },
   { "name":"today",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"datetime",
     "signature": "today() : Date",
     "info":"<p>Devuelve la fecha actual</p>"
   },
   { "name":"timeOfDay",     
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category":"datetime",
     "signature":"timeOfDay(): Time",
     "info": "<p>Devuelve la hora actual</p>"
   },
   { "name":"repeat",         
     "isVisible": true,  
+    "tooltip": "Información tootltip",
     "category": "filtering",
     "signature":"repeat(projection: expression) : collection",
     "example": [
@@ -581,10 +665,12 @@
   },
   { "name":"children",       
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "navigation"
   },
   { "name":"descendants",    
     "isVisible": false,  
+    "tooltip": "Información tootltip",
     "category": "navigation"
   }     
 ]

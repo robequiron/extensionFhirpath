@@ -2,12 +2,10 @@
 
 FhirpathUtil is an open source extension for Visual that implements functions specific to FHIR resource evaluation.
 
-FHIR® is the registered trademark of HL7 and is used with the permission of HL7. Use of the FHIR trademark does not constitute endorsement of this product by HL7.
 
 ## Features
 
- ![Fhirpathexample](fhirpathexample.gif)
- ![Fhirpathexample](https://github.com/robequiron/extensionFhirpath/fhirpathexample.gif)
+ ![](https://raw.githubusercontent.com/robequiron/extensionFhirpath/master/fhirpathexample.gif)
 
 
 ## For more information
