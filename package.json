@@ -3,7 +3,7 @@
   "displayName": "FhirpathUtil",
   "description": "FhirpathUtil is an open source extension for Visual that implements functions specific to FHIR resource evaluation.",
   "publisher": "FhirpathUtil",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
@@ -25,13 +25,16 @@
       "title": "Config FHIRPATH",
       "properties": {
         "fhirpathDemo.infofunc": {
-          "type":"boolean",
+          "type": "boolean",
           "default": false,
           "description": "Habilitar mostrar información y ayuda de las funciones FHIRPATH"
         },
         "fhirpathDemo.FhirLanguage": {
-          "type":"string",
-          "enum": ["ES","EN"],
+          "type": "string",
+          "enum": [
+            "ES",
+            "EN"
+          ],
           "default": "ES",
           "description": "Idioma a mostrar"
         }
@@ -59,28 +62,28 @@
       ]
     },
     "menus": {
-      "view/title": [
-        {
-          "command": "fhirpathDemo.start",
-          "when": "view == fhirpath"
-        }
-      ],
+      "view/title": [],
       "view/item/context": [
         {
           "command": "fhirpathDemo.getResource",
           "when": "view == fhirpath",
-          "group": "inline",
-          "arguments": [
-            {
-              "lineNumber": "$0"
-            }
-          ]
+          "group": "inline"
+        },
+        {
+          "command": "fhirpathDemo.getInfoFunction",
+          "when": "view == function && viewItem!=category",
+          "group": "inline"
+        },
+        {
+          "command": "fhirpathDemo.addFunction",
+          "when": "view == function && viewItem!=category",
+          "group": "inline"
         }
       ]
     },
     "viewsWelcome": [
       {
-        "view": "dependencias",
+        "view": "evaluates",
         "contents": "No node dependencies found [learn more](https://www.npmjs.com/).\n[Add Dependency](command:nodeDependencies.addEntry)"
       }
     ],
@@ -96,6 +99,22 @@
         "icon": {
           "light": "media/icons/fhirpath.svg",
           "dark": "media/icons/fhirpath-dark.svg"
+        }
+      },
+      {
+        "command": "fhirpathDemo.getInfoFunction",
+        "title": "Mostrar ayuda",
+        "icon": {
+          "light": "media/icons/light/info.svg",
+          "dark": "media/icons/dark/info.svg"
+        }
+      },
+      {
+        "command": "fhirpathDemo.addFunction",
+        "title": "Añadir función",
+        "icon": {
+          "light": "media/icons/light/word-wrap.svg",
+          "dark": "media/icons/dark/word-wrap.svg"
         }
       }
     ],
@@ -120,6 +139,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
+    "install": "npm i",
     "compile": "webpack",
     "watch": "webpack --watch",
     "genered": "vsce package",
@@ -147,7 +167,8 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
-    "fhirpath": "^3.6.0",
+    "@vscode/codicons": "^0.0.35",
+    "fhirpath": "^3.13.0",
     "rxjs": "^7.8.1"
   }
 }

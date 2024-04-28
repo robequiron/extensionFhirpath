@@ -5,7 +5,7 @@ FhirpathUtil is an open source extension for Visual that implements functions sp
 
 ## Features
 
- ![](https://raw.githubusercontent.com/robequiron/extensionFhirpath/master/fhirpathexample.gif)
+ ![](https://raw.githubusercontent.com/robequiron/extensionFhirpath/master/fhirpathexample120.gif)
 
 
 ## For more information

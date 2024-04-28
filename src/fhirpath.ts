@@ -133,7 +133,7 @@ export class FhirpathDemo {
                 currentPanel.webview.postMessage({command:'evaluate', evaluate:fhirpath.evaluate(JSON.parse(resource), evaluate)});
             }
         } catch (error) {
-            vscode.window.showErrorMessage("Existe un error al evaluar la expresión");
+            //vscode.window.showErrorMessage("Existe un error al evaluar la expresión");
         }
     }
 

@@ -34,9 +34,12 @@ export function activate(context: vscode.ExtensionContext) {
 		currentPanel.webview.onDidReceiveMessage(
 		  message => {
 			switch (message.command) {
-			  case 'evaluate':
-				FhirpathDemo.getEvalute(currentPanel,message.resource, message.evaluate);
-				break;	
+				case 'evaluate':
+					FhirpathDemo.getEvalute(currentPanel,message.resource, message.evaluate);
+					break;
+				case 'copyEvaluate':
+					vscode.window.showInformationMessage("Copiado correctamente");
+					break;	
 			}
 		  },
 		  undefined,

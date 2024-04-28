@@ -44,11 +44,16 @@ editor.on('dblclick', (cm,event)=>{
 //Borramos el input evaluate
 deleteEvaluate.addEventListener('click', ()=>{
   evaluate.value = [];
-  onEvaluate(evaluate.value);
+  response.innerHTML = response.innerHTML = '<pre>[]</pre>';
 });
-//Copiamos la evaluación y la añadimos al localStorage
+//Copiamos la evaluación y notificamos 
 copyEvaluate.addEventListener('click', ()=>{
   navigator.clipboard.writeText(evaluate.value);
+
+  vscode.postMessage({
+    command: 'copyEvaluate',
+    copy: evaluate.value
+  });
 });
 
 //Eliminamos la ultima propiedad o funcion
