@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { FunctionFhirpath } from '../models/functionFhirpath.model';
-import { filter, from, groupBy, mergeMap, toArray } from 'rxjs'
+import { filter, find as findrxjs, from, groupBy, mergeAll, mergeMap, Observable, tap, toArray } from 'rxjs'
 import { ThemeIcon } from 'vscode';
 import { COMMAND } from '../models/constant';
 import { Translate } from '../class/translate.class';
@@ -11,14 +11,6 @@ const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
 
 
 
-
-export class TreeItem {
-    constructor(public readonly label: string, public readonly tooltip?:string, 
-        public readonly iconPath?: ThemeIcon,
-        public readonly command?:vscode.Command,
-        public readonly children: Thenable<TreeItem[]> = Promise.resolve([])
-        ) {}
-}
 
 //* Creamos un listado con los recursos fhispath*/
 export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
@@ -32,8 +24,8 @@ export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
     files = fs.readdirSync(this.jsonFilePath).map((nameJSON,i)=>{
 		const item = nameJSON.charAt(0).toUpperCase() + nameJSON.slice(1,-5);
         const command = this.getCommand(i,item);
-		this.itemResource.push(new TreeItem(item,Translate.getTranslate('label.resource'),this.icon, command));
-        
+		
+        this.itemResource.push(new TreeItem(item,Translate.getTranslate('label.resource'),this.icon, command));        
 	});
 
 	getTreeItem(element: TreeItem): vscode.TreeItem {
@@ -61,15 +53,13 @@ export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
 export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
    
     private itemResource:FunctionItem[]= [];
-
-
-    private functionFhirpath:FunctionFhirpath[]= [];
+    private groupedFunctions:FunctionFhirpath[]= [];
     private icon:vscode.ThemeIcon = new ThemeIcon('explorer-view-icon');
     private jsonData: any;
     
     constructor() {
         this.getDataJson();
-        this.getItemDataJson();
+        this.getGroupedItems();
         this.getItems();
     }
 
@@ -90,15 +80,15 @@ export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
      * Obtenemos las categorías de las funciones del fichero json, solo se mostrarán los 
      * que tiene isVisible a true
      */
-    private getItemDataJson() {
+    private getGroupedItems() {
        
-        this.functionFhirpath = [];
+        this.groupedFunctions = [];
           from(this.jsonData).pipe(
             filter((data:any)=>data.isVisible),
             groupBy<any,any>(data=>data.category),
             mergeMap<any,FunctionFhirpath[]>(group => group.pipe(toArray()))
           ).subscribe((data)=>{
-            this.functionFhirpath.push(data)
+            this.groupedFunctions.push(data)
         })
     }
 
@@ -106,16 +96,20 @@ export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
      * Obtenemos la estructura principal del menu con las categorias y los hijos de cada una de ellas
      */    
     private getItems() {
-        from(this.functionFhirpath)
+        from(this.groupedFunctions)
         .subscribe(
-            (category:any) =>{                
-		        this.itemResource.push(new FunctionItem(Translate.getTranslate(category[0].category),this.getChildrenItems(category)));
+            (category:any) =>{  
+                const FhirpathFunction = new FunctionItem(Translate.getTranslate(category[0].category),this.getChildrenItems(category));
+                FhirpathFunction.contextValue = 'category'; 
+                FhirpathFunction.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;       
+		        this.itemResource.push(FhirpathFunction);
             }
         )
     }
     
     /**
      * Retornamos los items en TreeItems de cada categoría
+     *  item.command = this.getCommand(data);
      * @param items Retornamos 
      * @returns 
      */
@@ -124,7 +118,8 @@ export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
         from(items || [] ).subscribe(
             (data:any)=>{
                 const item = new FunctionItem(data.name);
-                item.command = this.getCommand(data);
+                item.id = data.name;
+                item.contextValue = 'function'
                 item.tooltip = data.tooltip || Translate.getTranslate("noInfo");
                 children.push(item);
             }
@@ -153,7 +148,28 @@ export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
         }
         return command
     }
+    /**
+     * Obtenemos subscripción de las funciones del Fhirpath que están agrupadas, 
+     * posteriormente se aplanan para su posterior búsqueda
+     * @params Nombre de la función a buscar
+     * @returns FunctionFhirpath | void
+     */
+    getFunctionItemMenu$(id:string):Observable<FunctionFhirpath | void > {
+        return from(this.groupedFunctions as any[])
+        .pipe(
+            mergeMap((f:FunctionFhirpath[])=>from(f)),
+            findrxjs(f=>f.name === id)
+        );
+    }
 
+}
+
+export class TreeItem {
+    constructor(public readonly label: string, public readonly tooltip?:string, 
+        public readonly iconPath?: ThemeIcon,
+        public readonly command?:vscode.Command,
+        public readonly children: Thenable<TreeItem[]> = Promise.resolve([])
+        ) {}
 }
 
 export class FunctionItem extends vscode.TreeItem {
@@ -169,5 +185,3 @@ export class FunctionItem extends vscode.TreeItem {
         this.children = children;
     }
 }
-
-

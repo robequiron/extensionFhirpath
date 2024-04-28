@@ -5,4 +5,5 @@ export class FunctionFhirpath {
     "isVisible":boolean;
     "example":string[];
     "info":string;
+    "function":string;
 }

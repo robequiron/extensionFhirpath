@@ -7,7 +7,7 @@ const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
 
 
 export class FhirpathDemo {
-
+    //#region Web
     /**
      * HTML del FHIRPATH demo
      * @param webview 
@@ -19,21 +19,31 @@ export class FhirpathDemo {
         let htmlContent = `<html>
         <head>
           <meta charset="UTF-8">
-          <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src cspSource; script-src 'nonce-nonce';">
+          <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src ${webview.cspSource}; style-src ${webview.cspSource}; script-src 'nonce-nonce';">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <link href="vscodeTest.css" rel="stylesheet">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <link href="icon.css" rel="stylesheet">
+          <link href="codemirror.css" rel="stylesheet"> 
         </head>
         <body>
           
         <div class="container">
-	  	    <input type="text" id="evaluate" class="inputFhirpath">
+            <div class="container-fhirevaluate">
+                <input type="text" id="evaluate" class="inputFhirpath">
+                <div class="contanier-fhirevaluate-icon" id="copyEvaluate"><i title="copy" class="codicon codicon-copy active"></i></div>
+                <div class="contanier-fhirevaluate-icon" id="deletePoint"><i title="delete point" class="codicon codicon-discard remove"></i></div>
+                <div class="contanier-fhirevaluate-icon" id="deleteEvaluate"><i title="delete" class="codicon codicon-trash delete"></i></div>
+            </div>
 	    </div>
         
-        <div class="container container-res">
-            <textarea id="resource" rows="10" cols="50" class="container-res-resource inputFhirpath">Write something here</textarea>
-            <div id="response" class="container-res-response"><pre>Codigo</pre></div>
+        <div class="container">
+            <div class="container-resource">
+                <textarea id="resource" rows="10" cols="50" class="container-res-resource inputFhirpath">Write something here</textarea>
+                <div id="response" class="container-res-response"><pre>Codigo</pre></div>
+            </div>
+            
         </div>
+
         <div class="container">
             <div class="container-functions">
                 <div id="labelFunction"></div>
@@ -43,17 +53,36 @@ export class FhirpathDemo {
         </div>
         <div>
         </div>
-          <script type="text/javascript" src="vscodeTest.js"></script>
+        <script type="text/javascript" src="codemirror.js"></script>
+        <script type="text/javascript" src="javascript.js"></script>
+        <script type="text/javascript" src="vscodeTest.js"></script>
         </body>
       </html>`;
-        const jsFilePath = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'fhirpathDemo.js');
+
+        const jsFilePath = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'js', 'fhirpathDemo.js');
         const visUri = webview.asWebviewUri(jsFilePath);
         htmlContent = htmlContent.replace('vscodeTest.js', visUri.toString());
+
+        const jsCodeMirror = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'js', 'codemirror.js');
+        const codeMirrorUri = webview.asWebviewUri(jsCodeMirror);
+        htmlContent = htmlContent.replace('codemirror.js', codeMirrorUri.toString());
+
+        const jsCodeMirrorJS = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'js', 'codemirrorjavascript.js');
+        const codeMirrorJSUri = webview.asWebviewUri(jsCodeMirrorJS);
+        htmlContent = htmlContent.replace('javascript.js',  codeMirrorJSUri.toString());
+
         
-        const cssPath = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'fhirpathDemo.css');
+        const cssPath = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'css','fhirpathDemo.css');
         const cssUri = webview.asWebviewUri(cssPath);
         htmlContent = htmlContent.replace('vscodeTest.css', cssUri.toString());
-        
+
+        const iconPath = vscode.Uri.joinPath(extensionContext.extensionUri, 'node_modules', '@vscode/codicons', 'dist', 'codicon.css');
+        const iconUri = webview.asWebviewUri(iconPath);
+        htmlContent = htmlContent.replace('icon.css',iconUri.toString());
+
+        const cssCodeMirror = vscode.Uri.joinPath(extensionContext.extensionUri, 'media', 'css', 'codemirror.css');
+        const cssCodeMirrorUri = webview.asWebviewUri(cssCodeMirror);
+        htmlContent = htmlContent.replace('codemirror.css',cssCodeMirrorUri.toString());
         
         htmlContent = htmlContent.replace('nonce-nonce', `nonce-${nonce}`);
         htmlContent = htmlContent.replace(/<script /g, `<script nonce="${nonce}" `);
@@ -77,9 +106,19 @@ export class FhirpathDemo {
         }	
     }
 
-    public static showFunctionFhirpath(currentPanel:vscode.WebviewPanel, functionFhirpath:any) {
-        if (!functionFhirpath) return;
+    public static showFunctionFhirpath(currentPanel:vscode.WebviewPanel, functionFhirpath:any):void {
+        if (!functionFhirpath) {
+            return;
+        }
         currentPanel.webview.postMessage({ command: 'showFunctionInfo', data:functionFhirpath});
+    }
+
+    //Añade una función del panel menu al input evaluate
+    public static addFunctionFhirpath(currentPanel:vscode.WebviewPanel,funcion:string):void {
+        if (!funcion) {
+            return;
+        }
+        currentPanel.webview.postMessage({command:'addFunction', data:funcion});
     }
 
     /**
@@ -94,7 +133,7 @@ export class FhirpathDemo {
                 currentPanel.webview.postMessage({command:'evaluate', evaluate:fhirpath.evaluate(JSON.parse(resource), evaluate)});
             }
         } catch (error) {
-            //vscode.window.showErrorMessage("Existe un error al evaluar la expresión");
+            vscode.window.showErrorMessage("Existe un error al evaluar la expresión");
         }
     }
 

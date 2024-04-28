@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		
 		currentPanel = vscode.window.createWebviewPanel(
-		  'vscodeTest',
+		  'webFhirpath',
 		  'Fhirpath Studio',
 		   vscode.ViewColumn.Active,
 		  {
@@ -54,6 +54,9 @@ export function activate(context: vscode.ExtensionContext) {
 		
 	}));
 
+	
+
+
 	//Creamos el listado de recursos de Fhirpath
 	const treeDataProvider = new TreeResourceJson();
 
@@ -66,27 +69,62 @@ export function activate(context: vscode.ExtensionContext) {
 	//Crea y muestra el TreeView del Fhirpath
     context.subscriptions.push(vscode.window.createTreeView('function', {treeDataProvider: treeDataFunction}));
 
-	//Registramos el commando que carga la extensión y muestra el pestaña de fhirtpath demo
+	//Registramos el commando que carga la extensión y muestra la pestaña de fhirtpath demo
 	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.GET_RESOURCE,(args)=>{
 		try {
 			vscode.commands.executeCommand(COMMAND.START)
-			if(currentPanel && currentPanel?.visible)  {
-				const resource:string = args.label;
-				FhirpathDemo.getJson(currentPanel,resource.toLowerCase());				
-			}	
+			setTimeout(()=>{
+				if(currentPanel && currentPanel?.visible)  {
+					const resource:string = args.label;
+					FhirpathDemo.getJson(currentPanel,resource.toLowerCase());				
+				}
+			},100)	
 		} catch (error) {
 			vscode.window.showErrorMessage(Translate.getTranslate("error.show.resource.fhirpath"))
 		}
 		 
 	}));
-
-	//Registramos el commando que carga la información de la función fhirpath desde el menu de recursos
-	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.INFO_FUNCTION, (args)=>{
+	/**
+	 * Funcion que muestra ayuda de la funciones disponibles de Fhirpath
+	 */
+	//TODO: Crear constante y cambiar el icono correspondiente
+	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.INFO_FUNCTION,  (args)=>{
 		try {
-			vscode.commands.executeCommand(COMMAND.START)
-			if(currentPanel && currentPanel?.visible) {
-				FhirpathDemo.showFunctionFhirpath(currentPanel, args.data);
-			} 	
+			treeDataFunction.getFunctionItemMenu$(args.id).subscribe({
+				next: (data) =>{
+					if (data) {
+						vscode.commands.executeCommand(COMMAND.START)
+						if(currentPanel && currentPanel?.visible) {
+							FhirpathDemo.showFunctionFhirpath(currentPanel, data);
+						}
+					}
+				},
+				error: ()=>{
+					vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"))
+				}
+			});
+		} catch (error) {
+			vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"))
+		}
+	}))
+
+	
+	//Añadimos la función al input evaluate
+	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.ADD_FUNCTION, (args)=>{
+		try {
+			treeDataFunction.getFunctionItemMenu$(args.id).subscribe({
+				next: (data) =>{
+					if (data) {
+						vscode.commands.executeCommand(COMMAND.START)
+						if(currentPanel && currentPanel?.visible) {
+							FhirpathDemo.addFunctionFhirpath(currentPanel,data.function);
+						}
+					}
+				},
+				error: ()=>{
+					vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"))
+				}
+			});	
 		} catch (error) {
 			vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"));
 		}

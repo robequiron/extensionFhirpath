@@ -1,6 +1,7 @@
 [
   { 
     "name":"empty",
+    "function": "empty()",
     "signature":" empty() : Boolean",       
     "isVisible": true,
     "tooltip": "Información tootltip",
@@ -15,6 +16,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "not()",
     "signature": "not() : Boolean",
     "example": [
         "<span>Devuelve <code>true</code> el recurso conditión tiene valores</span><code>Condition.empty().not()</code>",
@@ -26,6 +28,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "exists()",
     "signature": "exists([criteria : expression]) : Boolean",
     "example": [
         "<span>Devuelve <code>true</code> si Patient tiene algún name elemento.</span><code>Patient.name.exists()</code>",
@@ -39,6 +42,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "all()",
     "signature": "all(criteria : expression) : Boolean",
     "example":["<span>Devuelve <code>true</code> si todos los general Practitioner elementos son de tipo Practitioner.</span><code>generalPractitioner.all($this is Practitioner)</code>"],
     "info": "<p>Devuelve <code>true</code> si para cada elemento de la colección de entrada, criteria se evalúa como <code>true</code>. De lo contrario, el resultado es <code>false</code> Si la colección de entrada está vacía <code>({ })</code>, el resultado es <code>true</code>.</p>"
@@ -47,6 +51,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "allTrue()",
     "signature": "allTrue() : Boolean",
     "example": ["<span>Devuelve <code>true</code> si todos los componentes de la Observación tienen un valor superior a 90 mm[Hg]:</span><code>Observation.select(component.value > 90 \"mm[Hg]\").allTrue()</code>"],
     "info":"<p>Toma una colección de valores booleanos y devuelve <code>true</code> si todos los elementos son <code>true</code>. Si algún elemento es <code>false</code>, el resultado es <code>false</code> Si la entrada está vacía <code>({ })</code>, el resultado es <code>true</code><p>"
@@ -55,6 +60,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "anyTrue()",
     "signature": "anyTrue() : Boolean",
     "example": ["<span>El siguiente ejemplo devuelve <code>true</code> si alguno de los componentes de la Observación tiene un valor mayor a 90 mm[Hg]:</span><code>Observation.select(component.value > 90 \"mm[Hg]\").anyTrue()</code>"],
     "info" : "<p>Toma una colección de valores booleanos y devuelve <code>true</code> si alguno de los elementos es <code>true</code>. Si todos los elementos son <code>false</code>, o si la entrada está vacía <code>({ })</code>, el resultado es <code>false</code></p>"
@@ -63,6 +69,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "allFalse()",
     "signature":"allFalse() : Boolean",
     "example":["<span>Devuelve <code>true</code> si ninguno de los componentes de la Observación tiene un valor mayor a 90 mm[Hg]</span><code>Observation.select(component.value > 90 \"mm[Hg]\").allFalse()</code>"],
     "info":"<p>Toma una colección de valores booleanos y devuelve <code>true</code> si todos los elementos son <code>false</code> Si algún elemento lo es true, el resultado es <code>false</code> Si la entrada está vacía <code>({ })</code>, el resultado es <code>true</code>.</p>"
@@ -72,6 +79,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "anyFalse()",
     "signature": "anyFalse(): Boolean",
     "example":["<span>Devuelve <code>true</code> si alguno de los componentes de la Observación tiene un valor que no es mayor a 90 mm[Hg]</span><code>Observation.select(component.value > 90 \"mm[Hg]\").anyFalse()</code>"],
     "info": "<p>Toma una colección de valores booleanos y devuelve <code>true</code> si alguno de los elementos es <code>false</code>. Si todos los elementos son true, o si la entrada está vacía <code>( { })</code>, el resultado es <code>false</code></p>"
@@ -80,6 +88,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "subsetOf()",
     "signature": "subsetOf(other : collection) : Boolean",
     "example": ["<span>El siguiente ejemplo devuelve verdadero si las etiquetas definidas en cualquier recurso contenido son un subconjunto de las etiquetas definidas en el recurso MedicationRequest</span><code>MedicationRequest.contained.meta.tag.subsetOf(MedicationRequest.meta.tag)</code>"],
     "info": "<p>Devuelve <code>true</code> si todos los elementos de la colección de entrada son miembros de la colección pasada como otherargumento. La membresía se determina mediante la operación = (Igual a) ( =).</p><p>Conceptualmente, esta función se evalúa probando cada elemento de la colección de entrada para determinar su pertenencia a la otra colección, con un valor predeterminado de <code>true</code>. Esto significa que si la colección de entrada está vacía <code>({ })</code>, el resultado es <code>true</code>; de lo contrario, si la othercolección está vacía <code>({ })</code>, el resultado es <code>false</code></p>"
@@ -88,6 +97,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "supersetOf()",
     "signature": "supersetOf(other : collection) : Boolean",
     "example":["<span>El siguiente ejemplo devuelve verdadero si las etiquetas definidas en cualquier recurso contenido son un superconjunto de las etiquetas definidas en el recurso MedicationRequest</span><code>MedicationRequest.contained.meta.tag.supersetOf(MedicationRequest.meta.tag)</code>"],
     "info":"<p>Devuelve <code>true</code> si todos los elementos de la colección pasados ​​como otherargumento son miembros de la colección de entrada. La membresía se determina mediante la operación = (Igual a) ( =).</p><p>Conceptualmente, esta función se evalúa probando la otra pertenencia de cada elemento de la colección a la colección de entrada, con un valor predeterminado de <code>true</code>. Esto significa que si la otra colección está vacía <code>({ })</code>, el resultado es <code>true</code>; de lo contrario, si la colección de entrada está vacía <code>({ })</code>, el resultado es <code>false</code></p>"
@@ -96,6 +106,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "isDistinct()",
     "signature": "isDistinct() : Boolean",
     "example": ["<span>Esto significa que si la colección de entrada está vacía <code>( { })</code>, el resultado es verdadero.</span><code>X.count() = X.distinct().count()</code>"],
     "info":"<p>Devuelve <code>true</code> si todos los elementos de la colección de entrada son distintos. Para determinar si dos elementos son distintos, se utiliza el operador <code>= (Equals) (=)</code>, como se define a continuación.</p>"
@@ -104,6 +115,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "distinct()",
     "signature": "distinct() : collection",
     "example": ["<span>Devuelve la lista distinta de etiquetas en el Paciente dado</span><code>Patient.meta.tag.distinct()</code>"],
     "info": "<p>Devuelve una colección que contiene sólo los elementos únicos de la colección de entrada. Para determinar si dos elementos son iguales, se utiliza el operador <code>= (Equals) (=)</code>, como se define a continuación.</p><p>Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío.</p>"    
@@ -113,6 +125,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "existence",
+    "function": "count()",
     "signature": "count() : Integer",
     "info": "<p>Devuelve el recuento entero del número de elementos de la colección de entrada. Devuelve 0 cuando la colección de entrada está vacía.</p>"
   },
@@ -123,6 +136,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "where($this)",
     "signature": "where(criteria : expression) : collection",
     "example": ["<span>El siguiente ejemplo devuelve la lista de telecom elementos que tienen un useelemento con el valor de \"official\"</span><code>Patient.telecom.where(use = \"official\")</code>"],
     "info": "<p>Devuelve una colección que contiene sólo aquellos elementos de la colección de entrada para los cuales la expresión indicada se evalúa como <code>true</code>. Los elementos para los cuales la expresión se evalúa como <code>false</code> o está vacía <code>( { })</code> no se incluyen en el resultado.</p><p>Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío.</p><p>Si el resultado de la evaluación de la condición no es un valor booleano único, la evaluación finalizará y señalará un error al entorno de llamada, de manera consistente con la evaluación única del comportamiento de las colecciones.</p>"
@@ -137,6 +151,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "select()",
     "signature": "select(projection: expression) : collection",
     "example": [
       "<span>Este ejemplo da como resultado una colección con solo los recursos del paciente del paquete.</span><code>Bundle.entry.select(resource as Patient)</code>",
@@ -149,12 +164,14 @@
     "isVisible": false,  
     "tooltip": "Información tootltip",
     "category": "aggregate",
+    "function": "aggregate()",
     "signature": "aggregate(aggregator : expression [, init : value]) : value",
     "example": [],
     "info":""
   },
   { "name":"sum",         
     "isVisible": true, 
+    "function": "sum()",
     "signature": "sum(): Integer", 
     "tooltip": "Información tootltip",
     "category": "aggregate",
@@ -165,6 +182,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "aggregate",
+    "function": "min()",
     "signature": "min(): Integer",
     "example": ["<code>Patient.numbers.min()"],
     "info": "Obtiene el menor de un conjunto de valores numéricos"
@@ -173,6 +191,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "aggregate",
+    "function": "max()",
     "signature": "max() : Integer",
     "example": ["<code>Patient.numbers.max()</code>"],
     "info": "Obtiene el mayor de un conjunto de valores numéricos"
@@ -181,6 +200,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "aggregate",
+    "function": "avg()",
     "signature": "avg(): Integer",
     "example": ["<code>Patient.numbers.avg()</code>"],
     "info": "Obtiene la media de un conjunto de valores númericos"
@@ -190,6 +210,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "single()",
     "signature": "single(): collection",
     "example": ["<span>El siguiente ejemplo devuelve el nombre del paciente, si lo hay. Si no hay nombres, es una colección vacía y si hay varios nombres, se indica un error al entorno de evaluación.</span><code>Patient.name.single()</code>"],
     "info": "<p>Devolverá el único elemento en la entrada si solo hay un elemento. Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío. Si hay varios elementos, se señala un error al entorno de evaluación. Esta función es útil para garantizar que se devuelva un error si se infringe una suposición sobre la cardinalidad en tiempo de ejecución.</p>"
@@ -198,6 +219,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "first()",
     "signature": "first(): collection",
     "info": "<p>Devuelve una colección que contiene sólo el primer elemento de la colección de entrada. Esta función es equivalente a <code-function>item[0]</code-function>, por lo que devolverá una colección vacía si la colección de entrada no tiene elementos.</p>"
   },
@@ -205,6 +227,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "last()",
     "signature": "last(): collection",
     "info": "<p>Devuelve una colección que contiene sólo el último elemento de la colección de entrada. Devolverá una colección vacía si la colección de entrada no tiene elementos.</p>"
   },
@@ -232,6 +255,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "tail()",
     "signature": "tail(): collection",
     "info": "<p>Devuelve una colección que contiene todos los elementos excepto el primero de la colección de entrada. Devolverá una colección vacía si la colección de entrada no tiene elementos o solo tiene uno.</p>"
   },
@@ -239,6 +263,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "take(1)",
     "signature" : "take(num: Integer) : collection",
     "example": [
       "<span>Devuelve los primeros 2 elementos</span><code>Patient.numbers.take(2)</code>",
@@ -250,6 +275,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "skip(1)",
     "signature": "skip(num: Integer) : collection",
     "info":"<p>Devuelve una colección que contiene todos los num elementos excepto el primero de la colección de entrada. Devolverá una colección vacía si no quedan elementos después de que se haya omitido el número de elementos indicado, o si la colección de entrada está vacía. Si num es menor o igual a cero, simplemente se devuelve la colección de entrada.</p>"
   },
@@ -272,6 +298,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "misc",
+    "function": "iif()",
     "signature": "iif(criterion: expression, true-result: collection [, otherwise-result: collection]) : collection",
     "example": [
       "<span>Devuelve el id si existe, en caso contrario devuelve una colección vacia</span><code>iif(Patient.id.exists(),Patient.id)</code>"
@@ -372,6 +399,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "indexOf()",
     "signature": "indexOf(substring : String) : Integer",
     "example":[
       "<code>\"abcdefg\".indexOf(\"bc\") <code-comment>// 1<code-comment></code>",
@@ -385,6 +413,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "substring(2)",
     "signature": "substring(start : Integer [, length : Integer]) : String",
     "example": [
       "<code>\"abcdefg\".substring(3) <code-comment>// \"defg\"</code-comment></code>",
@@ -398,6 +427,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "startsWith()",
     "signature": "startsWith(prefix : String) : Boolean",
     "example": [
       "<code>\"abcdefg\".startsWith(\"abc\") <code-comment>// true</code-comment></code>",
@@ -409,6 +439,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "endsWith()",
     "signature": "endsWith(suffix : String) : Boolean",
     "example": [
       "<code>\"abcdefg\".endsWith(\"efg\") <code-comment>// true<code-comment></code>",
@@ -420,6 +451,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "contains('text')",
     "signature": "contains(substring : String) : Boolean",
     "example": [
       "<code>\"abc\".contains(\"b\") <code-comment>// true</code-comment></code>",
@@ -432,6 +464,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "upper()",
     "signature": "upper() : String",
     "info" : "<p>Devuelve la cadena de entrada con todos los caracteres convertidos a mayúsculas.</p><p>Si la colección de entrada está vacía, el resultado está vacío.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
@@ -439,6 +472,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "lower()",
     "signature": "lower(): String",
     "info" : "<p>Devuelve la cadena de entrada con todos los caracteres convertidos a minúsculas.</p><p>Si la colección de entrada está vacía, el resultado está vacío.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
@@ -446,6 +480,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "replace()",
     "signature": "replace(pattern : String, substitution : String) : String",
     "example": [
       "<code>\"abcdefg\".replace(\"cde\", \"123\") <code-comment>// \"ab123fg\"<code-comment></code>",
@@ -457,6 +492,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "matches()",
     "signature": "matches(regex : String) : Boolean",
     "info": "<p>Devuelve <code>true</code> cuando el valor coincide con la expresión regular dada. Las expresiones regulares deben funcionar de manera consistente, independientemente de cualquier configuración cultural y local específica en el entorno, deben distinguir entre mayúsculas y minúsculas, usar el modo de línea única y permitir caracteres Unicode.</p><p>Si la colección de entrada o regex está vacía, el resultado está vacío <code>( { })</code>.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
@@ -464,6 +500,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "replaceMatches()",
     "signature" : "replaceMatches(regex : String, substitution: String) : String",
     "info": "<p>Coincide con la entrada usando la expresión regular en regexy reemplaza cada coincidencia con la substitutioncadena. La sustitución puede hacer referencia a grupos de coincidencias identificados en la expresión regular.</p><p>Si la colección de entrada, regexo substitutionestán vacías, el resultado está vacío <code>( { })</code>.</p><p>Si la colección de entrada contiene varios elementos, la evaluación de la expresión finalizará y señalará un error al entorno de llamada.</p>"
   },
@@ -471,6 +508,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "length()",
     "signature": "length() : Integer",
     "info" : "<p>Devuelve la longitud de la cadena de entrada. Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío.</p>"
   },
@@ -478,6 +516,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "toChars()",
     "signature": "toChars() : collection",
     "info" : "<p>Devuelve la lista de caracteres en la cadena de entrada. Si la colección de entrada está vacía <code>( { })</code>, el resultado está vacío.</p>"
   },
@@ -485,6 +524,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "join()",
     "signature": "join([separator: String]) : String",
     "example": [
       "<span>Devuelve home PleasantVille</span><code>(Patient.address.use | Patient.address.city).join(\"\")</code>"
@@ -495,6 +535,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "split()",
     "signature": " split(separator: String) : collection",
     "info" : "<p>La función de división divide una cadena de entrada singleton en una lista de cadenas, utilizando el separador dado.</p><p>Si la entrada está vacía, el resultado está vacío.</p><p>Si la cadena de entrada no contiene ninguna apariencia del separador, el resultado es la cadena de entrada.</p>"
   },
@@ -502,6 +543,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "strings",
+    "function": "trim()",
     "signature": "trim() : String",
     "info" : "<p>La función de recorte recorta los caracteres de espacio en blanco desde el principio y el final de la cadena de entrada, con caracteres de espacio en blanco como se define en la categoría léxica de espacios en blanco .</p><p>Si la entrada está vacía, el resultado está vacío.</p>"
   },
@@ -519,6 +561,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "abs()",
     "signature": "abs(): Integer | Decimal | Quantity ",
     "example": [
       "<code>(-5).abs() <code-comment>//5</code-comment></code>",
@@ -531,6 +574,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "ceiling()",
     "signature": "ceiling() : Integer",
     "example": [ 
       "<code>1.ceiling() <code-comment>// 1</code-comment></code>",
@@ -543,6 +587,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "exp()",
     "signature": "exp() : Decimal",
     "example": [
       "<code>0.exp() <code-comment>// 1.0</code-comment></code>",
@@ -554,6 +599,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "floor()",
     "signature":"floor() : Integer",
     "example": [
       "<code>1.floor() <code-comment>// 1</code-comment></code>",
@@ -566,6 +612,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "ln()",
     "signature":"ln(): Decimal",
     "example": [
       "<code>1.ln() <code-comment>// 0.0</code-comment></code>",
@@ -577,6 +624,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "log(1.1)",
     "signature":  "log(base: Decimal) : Decimal",
     "example":  [ 
       "<code>16.log(2) <code-comment>// 4.0<code-comment></code>","<code>100.0.log(10.0) <code-comment>// 2.0<code-comment></code>"
@@ -587,6 +635,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "power()",
     "signature" : "power(exponent : Integer | Decimal) : Integer | Decimal",
     "example": [
       "<code>2.power(3) <code-comment>// 8</code-comment></code>",
@@ -599,6 +648,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "round()",
     "signature": "round([precision : Integer]) : Decimal",
     "example": [
       "<code>1.round() <code-comment>// 1</code-comment></code>",
@@ -610,6 +660,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "sqrt()",
     "signature":"sqrt() : Decimal",
     "example":[
       "<code>81.sqrt() <code-comment>// 9.0<code-comment></code>",
@@ -622,6 +673,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"math",
+    "function": "truncate()",
     "signature": "truncate() : Integer",
     "example": [
       "<code>101.truncate() <code-comment>// 101<code-comment></code>",
@@ -635,6 +687,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"datetime",
+    "function": "now()",
     "signature": "now(): DateTime",
     "info":"<p>Devuelve la fecha y hora actuales, incluido el desplazamiento de la zona horaria.</p>"
   },
@@ -642,6 +695,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"datetime",
+    "function": "today()",
     "signature": "today() : Date",
     "info":"<p>Devuelve la fecha actual</p>"
   },
@@ -649,6 +703,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category":"datetime",
+    "function": "timeOfDay()",
     "signature":"timeOfDay(): Time",
     "info": "<p>Devuelve la hora actual</p>"
   },
@@ -656,6 +711,7 @@
     "isVisible": true,  
     "tooltip": "Información tootltip",
     "category": "filtering",
+    "function": "repeat()",
     "signature":"repeat(projection: expression) : collection",
     "example": [
       "<span>Se repetirá la búsqueda de niños llamados contains hasta que no se encuentren nuevos nodos.</span><code>ValueSet.expansion.repeat(contains)</code>",
