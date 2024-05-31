@@ -3,7 +3,7 @@
   "displayName": "FhirpathUtil",
   "description": "FhirpathUtil is an open source extension for Visual that implements functions specific to FHIR resource evaluation.",
   "publisher": "FhirpathUtil",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",

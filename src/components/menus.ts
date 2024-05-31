@@ -9,10 +9,7 @@ import { COMMAND } from '../models/constant';
 import { Translate } from '../class/translate.class';
 const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
 
-
-
-
-//* Creamos un listado con los recursos fhispath*/
+//* Creamos un listado con los recursos fhirpath*/
 export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
     
 	private itemResource:TreeItem[]= [];
@@ -49,12 +46,11 @@ export class TreeResourceJson implements vscode.TreeDataProvider<TreeItem>  {
         return command
     }
 }
-
+/** Creamos un listada con las funciones del fhirpath */
 export class TreeFunctionJson implements vscode.TreeDataProvider<FunctionItem> {
    
     private itemResource:FunctionItem[]= [];
     private groupedFunctions:FunctionFhirpath[]= [];
-    private icon:vscode.ThemeIcon = new ThemeIcon('explorer-view-icon');
     private jsonData: any;
     
     constructor() {

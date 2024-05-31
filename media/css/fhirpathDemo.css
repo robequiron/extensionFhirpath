@@ -68,12 +68,22 @@
 .container-info-funcFHIR-title {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
 }
-.container-info-funcFHIR-title > h2 {
+
+.container-info-funcFHIR-title-label,
+.container-info-funcFHIR-title-closed {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.container-info-funcFHIR-title-label > h2 {
     margin: 0;
     padding-right: 0.375rem;
 }
-.container-info-funcFHIR-title > i {
+
+.container-info-funcFHIR-title-label > i {
     margin: 0;
     padding-right: 0.375rem;
     font-size: 19px;

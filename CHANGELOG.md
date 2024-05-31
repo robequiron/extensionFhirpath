@@ -2,6 +2,11 @@
 
 *Changelog created using the [Simple Changelog](https://marketplace.visualstudio.com/items?itemName=tobiaswaelde.vscode-simple-changelog) extension for VS Code.*
 
+## [1.2.3] - 2024-05-31
+### Added
+- Added function to close the information of the FHIR functions
+
+
 ## [1.2.2] - 2024-05-19
 ### Fixed
 - Icons resource fhirpath

@@ -3,7 +3,6 @@
 import * as vscode from 'vscode';
 import { FhirpathDemo} from './fhirpath';
 import {TreeFunctionJson,TreeResourceJson} from './components/menus';
-import { fromEvent } from 'rxjs';
 import { COMMAND, CONSTANT } from './models/constant';
 import { Translate } from './class/translate.class';
 const configFhirpathDemo = vscode.workspace.getConfiguration('fhirpathDemo');
@@ -27,10 +26,11 @@ export function activate(context: vscode.ExtensionContext) {
 		  'Fhirpath Studio',
 		   vscode.ViewColumn.Active,
 		  {
-			enableScripts: true,
-			retainContextWhenHidden: true
-		  }
-		);    
+			enableScripts: true, //Permite la ejecución de scripts en el Webview
+			retainContextWhenHidden: true //Mantiene el estado cuando el panel está oculto
+ 		  }
+		);  
+		//Manejador de eventos enviados desde el Webview. 
 		currentPanel.webview.onDidReceiveMessage(
 		  message => {
 			switch (message.command) {
@@ -44,7 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
 		  },
 		  undefined,
 		  context.subscriptions
-		);
+		);	
 		FhirpathDemo.getJson(currentPanel,'patient');
 		FhirpathDemo.setHtmlContent(currentPanel.webview, context, getNonce());
 		if (configFhirpathDemo.get('infofunc')) {
@@ -58,8 +58,6 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	
-
-
 	//Creamos el listado de recursos de Fhirpath
 	const treeDataProvider = new TreeResourceJson();
 
@@ -75,13 +73,14 @@ export function activate(context: vscode.ExtensionContext) {
 	//Registramos el commando que carga la extensión y muestra la pestaña de fhirtpath demo
 	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.GET_RESOURCE,(args)=>{
 		try {
-			vscode.commands.executeCommand(COMMAND.START)
+			vscode.commands.executeCommand(COMMAND.START);
+			
 			setTimeout(()=>{
 				if(currentPanel && currentPanel?.visible)  {
 					const resource:string = args.label;
 					FhirpathDemo.getJson(currentPanel,resource.toLowerCase());				
 				}
-			},100)	
+			},300)	
 		} catch (error) {
 			vscode.window.showErrorMessage(Translate.getTranslate("error.show.resource.fhirpath"))
 		}
@@ -110,7 +109,6 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"))
 		}
 	}))
-
 	
 	//Añadimos la función al input evaluate
 	context.subscriptions.push(vscode.commands.registerCommand(COMMAND.ADD_FUNCTION, (args)=>{
@@ -132,8 +130,7 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showErrorMessage(Translate.getTranslate("error.function.info.fhirpath"));
 		}
 	}))
-
-		
+	
 }
 
 function getNonce() {

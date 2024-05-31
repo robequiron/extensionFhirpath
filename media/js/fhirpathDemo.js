@@ -6,7 +6,8 @@ const response = document.getElementById('response');
 const deleteEvaluate = document.getElementById('deleteEvaluate');
 const deletePoint = document.getElementById('deletePoint');
 const copyEvaluate = document.getElementById('copyEvaluate');
-let addFunction;
+const infoFunction = document.getElementById('infoFunction');
+let addFunction, closedInfoFunction;
 let labelFunctions = document.querySelectorAll('.label');
 
 
@@ -24,7 +25,9 @@ var editor = CodeMirror.fromTextArea(resource, {
   tabSize: tabSize, // Tamaño de la tabulación
   indentWithTabs: true, // Utilizar tabs para la indentación
   lineNumbers: true,
-  lineWrapping: true,
+  foldGutter: true,
+  lineWrapping: true
+  
 })
 
 editor.on('scroll', ()=>{
@@ -62,7 +65,7 @@ deletePoint.addEventListener('click', ()=>{
 });
 
 evaluate.addEventListener('input', (event)=>{
-  clearTimeout(setTimeEvaluate);
+  clearTimeout(setTimeEvaluate);  
   setTimeEvaluate = setTimeout(()=>{
     event.target.value = event.target.value.replace(/"/g, "'")
     onEvaluate(evaluate.value);
@@ -89,9 +92,14 @@ window.addEventListener('message', event=>{
         evaluate.value = getValueProperty(e.target.dataset.function);
         onEvaluate(evaluate.value || '');
       })
+      closedInfoFunction = document.getElementById('closedInfoFunction');
+      closedInfoFunction.addEventListener('click', ()=>{
+        this.infoFunction.innerHTML = '';
+      })
       break;
     case 'addFunction':
       evaluate.value = getValueProperty(message.data);
+      evaluate.focus();
       onEvaluate(evaluate.value || '');
       break;
   }
@@ -131,15 +139,16 @@ function onEvaluate(value) {
  * @param {*} data 
  */
 function setInfoFunctions(data){
-  const infoFunction = document.getElementById('infoFunction');
   if (data) {
     let html = '<div class="container-info-funcFHIR">';
-    html+= '<div class="container-info-funcFHIR-title"><h2>'+ data.name +'</h2>';
-
+    html+= '<div class="container-info-funcFHIR-title">';
+    html+= '<div class="container-info-funcFHIR-title-label"><h2>'+ data.name +'</h2>';
     if (data.function) {
-      html+= '<i title="add-funcion" id="addFunction" data-function="'+data.function+'" class="codicon codicon-word-wrap active"></i>';
-    } 
+      html+= '<i title="Añadir función de fhirpath" id="addFunction" data-function="'+data.function+'" class="codicon codicon-word-wrap active"></i>';
+    }
+    html+= '</div>';
 
+    html+= '<div class="container-info-funcFHIR-title-closed"><i title="Cerrar información" id="closedInfoFunction"  class="codicon codicon-chrome-close"></i></div>';
     html+= '</div>';
     html+= '<div class="container-info-funcFHIR-signature"><h3>'+ data.signature+'</h3></div>'; 
 
@@ -154,7 +163,7 @@ function setInfoFunctions(data){
       html+='</div>';
     }
     html+='</div>'
-    infoFunction.innerHTML = html;
+    this.infoFunction.innerHTML = html;
   }
   
 }
